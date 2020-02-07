@@ -9,7 +9,7 @@ const Exercise = props => (
         <td>{props.exercise.duration}</td>
         <td>{props.exercise.date.substring(0, 10)}</td>
         <td>
-            <Button href={"/edit/" + props.exercise._id}>edit</Button>
+            <Button href={"/Exercise-Tracker/edit/" + props.exercise._id}>edit</Button>
             <span> </span>
             <Button href="#" onClick={() => {
                 props.deleteExercise(props.exercise._id)

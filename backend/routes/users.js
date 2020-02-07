@@ -1,13 +1,13 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 
-router.route('/').get((req, res) => {
+router.route('/Exercise-Tracker/').get((req, res) => {
     User.find()
         .then(users => res.json(users))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/Exercise-Tracker/add').post((req, res) => {
     const username = req.body.username;
     const newUser = new User({username});
 
@@ -16,19 +16,19 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/Exercise-Tracker/:id').get((req, res) => {
     User.findById(req.params.id)
         .then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.route('/Exercise-Tracker/:id').delete((req, res) => {
     User.findByIdAndDelete(req.params.id)
         .then(() => res.json('User Deleted'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/Exercise-Tracker/update/:id').post((req, res) => {
     User.findById(req.params.id)
         .then(user => {
             user.username = req.body.username;
