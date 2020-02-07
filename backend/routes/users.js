@@ -18,7 +18,7 @@ router.route('/add').post((req, res) => {
 
 router.route('/:id').get((req, res) => {
     User.findById(req.params.id)
-        .then(exercise => res.json(exercise))
+        .then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -30,10 +30,10 @@ router.route('/:id').delete((req, res) => {
 
 router.route('/update/:id').post((req, res) => {
     User.findById(req.params.id)
-        .then(exercise => {
-            exercise.username = req.body.username;
+        .then(user => {
+            user.username = req.body.username;
 
-            exercise.save()
+            user.save()
                 .then(() => res.json('User Updated'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })

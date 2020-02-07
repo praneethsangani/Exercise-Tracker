@@ -6,10 +6,12 @@ export default class CreateUser extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangeDeleteUsername = this.onChangeDeleteUsername.bind(this);
+        this.onChangeDeleteUsername = this.onChangeDeleteUsername.bind(this);       // Should probably move these into their own components but alas
         this.onChangeUpdateUsername = this.onChangeUpdateUsername.bind(this);
+        this.onChangeUpdateNewUsername = this.onChangeUpdateNewUsername.bind(this);
         this.onSubmitAdd = this.onSubmitAdd.bind(this);
         this.onSubmitDelete = this.onSubmitDelete.bind(this);
+        this.onSubmitUpdate = this.onSubmitUpdate.bind(this);
 
         this.state = {
             users: [],
@@ -17,7 +19,8 @@ export default class CreateUser extends Component {
             updateList: [],
             addUsername: '',
             updateUsername: '',
-            deleteUsername: ''
+            deleteUsername: '',
+            updateNewUsername: '',
         }
     };
 
@@ -28,6 +31,7 @@ export default class CreateUser extends Component {
                     this.setState({
                         users: response.data,
                         deleteUsername: response.data[0].username,
+                        updateUsername: response.data[0].username,
                         deleteList: response.data.map(user => user.username),
                         updateList: response.data.map(user => user.username)
                     })
@@ -57,11 +61,17 @@ export default class CreateUser extends Component {
         })
     }
 
+    onChangeUpdateNewUsername(e) {
+        this.setState({
+            updateNewUsername: e.target.value
+        })
+    }
+
     onSubmitAdd(e) {
         e.preventDefault();
 
         const user = {
-            addUsername: this.state.addUsername
+            username: this.state.addUsername
         };
 
         axios.post('http://localhost:5000/users/add', user)
@@ -69,7 +79,9 @@ export default class CreateUser extends Component {
 
         this.setState({
             addUsername: ''
-        })
+        });
+
+        window.location = '/user';
     }
 
     onSubmitDelete(e) {
@@ -82,9 +94,30 @@ export default class CreateUser extends Component {
                 id = this.state.users[i]._id;
             }
         }
-        console.log(id);
 
         axios.delete('http://localhost:5000/users/' + id)
+            .then(response => {
+                console.log(response.data)
+            });
+
+        window.location = '/user';
+    }
+
+    onSubmitUpdate(e) {
+        e.preventDefault();
+
+        let id;
+        for (let i = 0; i < this.state.users.length; i++) {
+            if (this.state.users[i].username === this.state.updateUsername) {
+                id = this.state.users[i]._id;
+            }
+        }
+
+        const user = {
+            username: this.state.updateNewUsername
+        };
+
+        axios.post('http://localhost:5000/users/update/' + id, user)
             .then(response => {
                 console.log(response.data)
             });
@@ -110,7 +143,9 @@ export default class CreateUser extends Component {
                         <input type="submit" value="Create User" className="btn btn-primary"/>
                     </div>
                 </form>
+
                 <br/>
+
                 <h3>Delete User</h3>
                 <form onSubmit={this.onSubmitDelete}>
                     <div className="form-group">
@@ -134,9 +169,11 @@ export default class CreateUser extends Component {
                         <input type="submit" value="Delete User" className="btn btn-primary"/>
                     </div>
                 </form>
+
                 <br/>
+
                 <h3>Update User</h3>
-                <form onSubmit={this.onSubmitDelete}>
+                <form onSubmit={this.onSubmitUpdate}>
                     <div className="form-group">
                         <label>Username: </label>
                         <select ref="userInput"
@@ -155,16 +192,16 @@ export default class CreateUser extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Username: </label>
+                        <label>New Username: </label>
                         <input type="text"
                                required
                                className="form-control"
-                               value={this.state.updateUsername}
-                               onChange={this.onChangeUsername}
+                               value={this.state.updateNewUsername}
+                               onChange={this.onChangeUpdateNewUsername}
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Delete User" className="btn btn-primary"/>
+                        <input type="submit" value="Update User" className="btn btn-primary"/>
                     </div>
                 </form>
             </div>

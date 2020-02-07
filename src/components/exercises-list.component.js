@@ -49,7 +49,9 @@ export default class ExercisesList extends Component {
     }
 
     exerciseList() {
-        return this.state.exercises.map(currentExercises => {
+        return this.state.exercises.sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime()
+        }).map(currentExercises => {
             return <Exercise exercise={currentExercises} deleteExercise={this.deleteExercise}
                              key={currentExercises._id}/>;
         })
