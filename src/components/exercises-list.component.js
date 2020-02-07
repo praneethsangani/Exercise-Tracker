@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-const axiosInstance = axios.create({baseURL: 'https://exercise-trackerapp.herokuapp.com'});
-
 const Exercise = props => (
     <tr>
         <td>{props.exercise.username}</td>
@@ -30,7 +28,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axiosInstance.get('/exercises/')
+        axios.get(process.env.PORT + '/exercises/')
             .then(response => {
                 this.setState({exercises: response.data})
             })
@@ -40,7 +38,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axiosInstance.delete('/exercises/' + id)
+        axios.delete(process.env.PORT + '/exercises/' + id)
             .then(response => {
                 console.log(response.data)
             });

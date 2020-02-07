@@ -3,8 +3,6 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const axiosInstance = axios.create({baseURL: 'https://exercise-trackerapp.herokuapp.com'});
-
 export default class EditExercise extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +23,7 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
-        axiosInstance.get('/exercises/' + this.props.match.params.id)
+        axios.get(process.env.PORT + '/exercises/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     username: response.data.username,
@@ -38,7 +36,7 @@ export default class EditExercise extends Component {
                 console.log(error);
             });
 
-        axiosInstance.get('/users/')
+        axios.get(process.env.PORT + '/users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -88,7 +86,7 @@ export default class EditExercise extends Component {
 
         console.log(exercise);
 
-        axiosInstance.post('/exercises/update/' + this.props.match.params.id, exercise)
+        axios.post(process.env.PORT + '/exercises/update/' + this.props.match.params.id, exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';

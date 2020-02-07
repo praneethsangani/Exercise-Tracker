@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-const axiosInstance = axios.create({baseURL: 'https://exercise-trackerapp.herokuapp.com'});
-
 export default class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +25,7 @@ export default class CreateUser extends Component {
     };
 
     componentDidMount() {
-        axiosInstance.get('/users/')
+        axios.get(process.env.PORT + '/users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -76,7 +74,7 @@ export default class CreateUser extends Component {
             username: this.state.addUsername
         };
 
-        axiosInstance.post('/users/add', user)
+        axios.post(process.env.PORT + '/users/add', user)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -97,7 +95,7 @@ export default class CreateUser extends Component {
             }
         }
 
-        axiosInstance.delete('/users/' + id)
+        axios.delete(process.env.PORT + '/users/' + id)
             .then(response => {
                 console.log(response.data)
             });
@@ -119,7 +117,7 @@ export default class CreateUser extends Component {
             username: this.state.updateNewUsername
         };
 
-        axiosInstance.post('/users/update/' + id, user)
+        axios.post(process.env.PORT + '/users/update/' + id, user)
             .then(response => {
                 console.log(response.data)
             });
