@@ -25,7 +25,7 @@ export default class CreateUser extends Component {
     };
 
     componentDidMount() {
-        axios.get('http://localhost:' + process.env.PORT + '/users/')
+        axios.get('https://exercise-trackerapp.herokuapp.com//users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -74,7 +74,7 @@ export default class CreateUser extends Component {
             username: this.state.addUsername
         };
 
-        axios.post('http://localhost:' + process.env.PORT + '/users/add', user)
+        axios.post('https://exercise-trackerapp.herokuapp.com/users/add', user)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -95,7 +95,7 @@ export default class CreateUser extends Component {
             }
         }
 
-        axios.delete('http://localhost:' + process.env.PORT + '/users/' + id)
+        axios.delete('https://exercise-trackerapp.herokuapp.com/users/' + id)
             .then(response => {
                 console.log(response.data)
             });
@@ -117,7 +117,7 @@ export default class CreateUser extends Component {
             username: this.state.updateNewUsername
         };
 
-        axios.post('http://localhost:' + process.env.PORT + '/users/update/' + id, user)
+        axios.post('https://exercise-trackerapp.herokuapp.com/users/update/' + id, user)
             .then(response => {
                 console.log(response.data)
             });

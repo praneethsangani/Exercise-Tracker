@@ -28,7 +28,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:' + process.env.PORT + '/exercises/')
+        axios.get('https://exercise-trackerapp.herokuapp.com/exercises/')
             .then(response => {
                 this.setState({exercises: response.data})
             })
@@ -38,7 +38,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('http://localhost:' + process.env.PORT + '/exercises/' + id)
+        axios.delete('https://exercise-trackerapp.herokuapp.com/exercises/' + id)
             .then(response => {
                 console.log(response.data)
             });
