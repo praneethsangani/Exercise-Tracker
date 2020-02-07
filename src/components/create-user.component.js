@@ -25,7 +25,7 @@ export default class CreateUser extends Component {
     };
 
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
+        axios.get('https://praneethsangani.github.io/Exercise-Tracker/users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -74,7 +74,7 @@ export default class CreateUser extends Component {
             username: this.state.addUsername
         };
 
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('https://praneethsangani.github.io/Exercise-Tracker/users/add', user)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -95,7 +95,7 @@ export default class CreateUser extends Component {
             }
         }
 
-        axios.delete('http://localhost:5000/users/' + id)
+        axios.delete('https://praneethsangani.github.io/Exercise-Tracker/users/' + id)
             .then(response => {
                 console.log(response.data)
             });
@@ -117,7 +117,7 @@ export default class CreateUser extends Component {
             username: this.state.updateNewUsername
         };
 
-        axios.post('http://localhost:5000/users/update/' + id, user)
+        axios.post('https://praneethsangani.github.io/Exercise-Tracker/users/update/' + id, user)
             .then(response => {
                 console.log(response.data)
             });
