@@ -20,12 +20,11 @@ const usersRouter = require('./routes/users');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("build"));
-}
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
-const uri = "mongodb://prs79:Ymvdule5@ds041188.mlab.com:41188/heroku_qvsl7gn0";
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static('build'));
+}
 
 const port = process.env.PORT || 5000;
 
