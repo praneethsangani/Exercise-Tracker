@@ -23,7 +23,7 @@ export default class CreateExercise extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://praneethsangani.github.io/Exercise-Tracker/users/')
+        axios.get('http://localhost:5000/users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -72,7 +72,7 @@ export default class CreateExercise extends Component {
             date: this.state.date
         };
 
-        axios.post('https://praneethsangani.github.io/Exercise-Tracker/exercises/add', exercise)
+        axios.post('http://localhost:5000/exercises/add', exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
