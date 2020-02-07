@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mongoose.connection;
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully.");
 });
@@ -20,8 +21,6 @@ const usersRouter = require('./routes/users');
 app.use(cors());
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
-
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('build'));
