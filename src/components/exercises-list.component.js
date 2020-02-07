@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-const axios = axios.create({baseURL: 'https://exercise-trackerapp.herokuapp.com'});
+const axiosInstance = axios.create({baseURL: 'https://exercise-trackerapp.herokuapp.com'});
 
 const Exercise = props => (
     <tr>
@@ -30,7 +30,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axios.get('/exercises/')
+        axiosInstance.get('/exercises/')
             .then(response => {
                 this.setState({exercises: response.data})
             })
@@ -40,7 +40,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('/exercises/' + id)
+        axiosInstance.delete('/exercises/' + id)
             .then(response => {
                 console.log(response.data)
             });
