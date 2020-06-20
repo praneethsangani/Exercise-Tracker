@@ -1,1 +1,1 @@
-# Simple exercise tracker using MERN stack - In Progress
+# Simple exercise tracker using MERN stack
